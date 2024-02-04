@@ -1,0 +1,29 @@
+version: "3"
+services:
+  node-app:
+    build: .
+    ports:
+      - "3009:3009"
+    #volumes:
+    # - ./:/app
+    # - /app/node_modules
+    environment:
+      - PORT=3009
+    depends_on:
+      - mongo  
+
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=kumar
+      - MONGO_INITDB_ROOT_PASSWORD=mypassword 
+    volumes:
+      - mongo-db:/data/db
+
+volumes:
+  mongo-db:  
+
+       
+      
+    #  env_file:
+    # - ./.env

@@ -1,0 +1,15 @@
+version: "3"
+services:
+  node-app:
+    build: .
+    ports:
+      - "3009:3009"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      - PORT=3009
+          
+      
+    #  env_file:
+    # - ./.env
