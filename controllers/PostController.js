@@ -12,7 +12,7 @@ exports.getAllPosts = async (req, res, next) => {
                         },
                 });              
         } catch (error) {
-                console.log("hii this error");
+                console.log("I think your databases mongoDB not connected due to docker connection problem.");``
                 res.status(400).json({
                         status: "fail",
                 });               
