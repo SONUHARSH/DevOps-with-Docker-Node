@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const redis = require("redis");
-const connectRedis = require("connect-redis");
+const { RedisStore } = require("connect-redis");
 
 
 const { 
@@ -15,15 +15,15 @@ const {
     REDIS_PORT,
     SESSION_SECRET
     
-} = require("./config/config"); 
+} = require("./config/config");
 
 
 let redisClient = redis.createClient({
   host: REDIS_URL,
   port: REDIS_PORT
 });
-`` 
-//const RedisStore = connectRedis(session); 
+``
+
 const postRouter = require("./routes/postRoutes");
 const userRouter = require("./routes//userRoutes");
 
@@ -47,19 +47,19 @@ const connectWithRetry = () => {
 };
 connectWithRetry();
 
-//const sessionStore = new connectRedis({ client: redisClient });
-app.enable("trust proxy");
+
+
 app.use(session({
-  cookie: {
-    //store: new RedisStore({ client: redisClient }),
-  //store: sessionStore,
+  //store: new RedisStore({ client: redisClient }),
+
   secret: SESSION_SECRET,
+  cookie: {
     secure: false,
     resave: false,
     saveUninitialized: false,
     httpOnly: true,
-    maxAge: 30000,
-  },
+    maxAge: 30000
+  } 
 }));
 
 
@@ -67,9 +67,8 @@ app.use(session({
 app.use(express.json());
 
 
-app.get("/api/v1", (req, res) => {
+app.get("/", (req, res) => {
         res.send("<h2> Hi There!!!<h2>");
-        console.log("yeah it ran")
 });
 
 //localhost:3009/api/v1/posts
